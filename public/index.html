@@ -1,1 +1,591 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>movie-browser</title></head><body><h1>movie-browser</h1><p>Macで動画を快適にブラウズ。</p></body></html>
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>movie-browser | Macで動画を速く探せるブラウザ</title>
+    <meta
+      name="description"
+      content="movie-browserは、フォルダ内の動画をサムネイル一覧で高速にブラウズできるmacOSアプリです。"
+    />
+    <meta property="og:title" content="movie-browser" />
+    <meta
+      property="og:description"
+      content="Macで動画を速く探せる、軽量ビデオブラウザ。"
+    />
+    <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#102030" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Space+Grotesk:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --bg-0: #f4f6f8;
+        --bg-1: #ffffff;
+        --ink-0: #101622;
+        --ink-1: #415068;
+        --line: #d8e0eb;
+        --accent: #1565c0;
+        --accent-2: #0ea5a0;
+        --accent-soft: #e4f1ff;
+        --radius: 18px;
+        --shadow: 0 18px 38px rgba(16, 22, 34, 0.1);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        color: var(--ink-0);
+        background:
+          radial-gradient(circle at 85% 0%, #c6e7ff 0%, rgba(198, 231, 255, 0) 45%),
+          radial-gradient(circle at 0% 40%, #d8fff7 0%, rgba(216, 255, 247, 0) 36%),
+          var(--bg-0);
+        font-family: "Noto Sans JP", sans-serif;
+        line-height: 1.6;
+      }
+
+      .wrap {
+        width: min(1080px, 92vw);
+        margin: 0 auto;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        backdrop-filter: blur(8px);
+        background: rgba(244, 246, 248, 0.78);
+        border-bottom: 1px solid rgba(216, 224, 235, 0.8);
+        z-index: 10;
+      }
+
+      .topbar-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 0;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-family: "Space Grotesk", sans-serif;
+        font-size: 1.1rem;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+      }
+
+      .brand-mark {
+        width: 34px;
+        aspect-ratio: 1;
+        border-radius: 10px;
+        background:
+          linear-gradient(135deg, rgba(21, 101, 192, 0.95), rgba(14, 165, 160, 0.95));
+        color: #fff;
+        display: grid;
+        place-items: center;
+        box-shadow: 0 10px 18px rgba(21, 101, 192, 0.35);
+        font-size: 0.9rem;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 999px;
+        border: 1px solid transparent;
+        padding: 10px 18px;
+        font-size: 0.95rem;
+        font-weight: 700;
+        text-decoration: none;
+        transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
+      }
+
+      .btn-primary {
+        color: #fff;
+        background: linear-gradient(120deg, var(--accent), #127ab3);
+        box-shadow: 0 10px 22px rgba(21, 101, 192, 0.35);
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-1px);
+      }
+
+      .btn-secondary {
+        color: var(--ink-0);
+        border-color: var(--line);
+        background: #fff;
+      }
+
+      .hero {
+        padding: 70px 0 28px;
+      }
+
+      .hero-grid {
+        display: grid;
+        gap: 32px;
+        grid-template-columns: 1.08fr 0.92fr;
+        align-items: center;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 11px;
+        border-radius: 999px;
+        background: var(--accent-soft);
+        color: var(--accent);
+        font-size: 0.78rem;
+        font-weight: 700;
+      }
+
+      h1,
+      h2,
+      h3 {
+        margin: 0;
+        line-height: 1.15;
+      }
+
+      h1 {
+        margin-top: 16px;
+        font-size: clamp(2.1rem, 5vw, 3.3rem);
+        font-weight: 900;
+        letter-spacing: -0.02em;
+      }
+
+      .hero p {
+        margin: 16px 0 0;
+        font-size: 1.05rem;
+        color: var(--ink-1);
+      }
+
+      .hero-actions {
+        margin-top: 28px;
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .hero-note {
+        margin-top: 14px;
+        font-size: 0.88rem;
+        color: #5a6d87;
+      }
+
+      .preview {
+        background: linear-gradient(170deg, #102030 10%, #192f4b 90%);
+        color: #e6f3ff;
+        border-radius: calc(var(--radius) + 8px);
+        padding: 22px;
+        box-shadow: var(--shadow);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .preview::after {
+        content: "";
+        position: absolute;
+        inset: auto -16% -44% auto;
+        width: 250px;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(14, 165, 160, 0.36), rgba(14, 165, 160, 0));
+      }
+
+      .preview-title {
+        font-size: 0.86rem;
+        opacity: 0.88;
+      }
+
+      .clip-grid {
+        margin-top: 14px;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+
+      .clip {
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 12px;
+        padding: 9px;
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      .clip-thumb {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        border-radius: 8px;
+        background:
+          linear-gradient(155deg, rgba(21, 101, 192, 0.95), rgba(14, 165, 160, 0.92));
+      }
+
+      .clip-meta {
+        margin-top: 6px;
+        font-size: 0.76rem;
+        opacity: 0.92;
+      }
+
+      section {
+        padding: 48px 0;
+      }
+
+      .section-head {
+        margin-bottom: 20px;
+      }
+
+      h2 {
+        font-size: clamp(1.6rem, 3.5vw, 2.3rem);
+        font-weight: 800;
+        letter-spacing: -0.01em;
+      }
+
+      .lead {
+        margin-top: 10px;
+        color: var(--ink-1);
+      }
+
+      .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .card {
+        background: var(--bg-1);
+        border-radius: var(--radius);
+        padding: 22px;
+        border: 1px solid var(--line);
+        box-shadow: 0 8px 20px rgba(16, 22, 34, 0.05);
+      }
+
+      .card h3 {
+        margin-top: 6px;
+        font-size: 1.1rem;
+      }
+
+      .card p {
+        margin: 8px 0 0;
+        font-size: 0.95rem;
+        color: var(--ink-1);
+      }
+
+      .badge {
+        width: 34px;
+        aspect-ratio: 1;
+        border-radius: 10px;
+        display: grid;
+        place-items: center;
+        background: #ecf5ff;
+        color: var(--accent);
+        font-size: 0.9rem;
+        font-weight: 900;
+      }
+
+      .steps {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .step-number {
+        font-family: "Space Grotesk", sans-serif;
+        font-weight: 700;
+        color: #5f7ea7;
+      }
+
+      .faq {
+        display: grid;
+        gap: 10px;
+      }
+
+      details {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 14px 16px;
+      }
+
+      summary {
+        cursor: pointer;
+        font-weight: 700;
+      }
+
+      details p {
+        margin: 9px 0 0;
+        color: var(--ink-1);
+      }
+
+      .cta {
+        background: linear-gradient(150deg, #0f2f4c, #10426a);
+        border-radius: calc(var(--radius) + 6px);
+        color: #f0f7ff;
+        padding: 34px;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .cta::before {
+        content: "";
+        position: absolute;
+        right: -60px;
+        top: -60px;
+        width: 170px;
+        aspect-ratio: 1;
+        background: radial-gradient(circle, rgba(14, 165, 160, 0.42), rgba(14, 165, 160, 0));
+      }
+
+      .cta p {
+        color: rgba(240, 247, 255, 0.82);
+        margin-top: 10px;
+      }
+
+      .cta-actions {
+        margin-top: 18px;
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .btn-light {
+        background: #fff;
+        color: #102030;
+      }
+
+      .btn-ghost {
+        border-color: rgba(255, 255, 255, 0.42);
+        color: #fff;
+        background: transparent;
+      }
+
+      footer {
+        padding: 24px 0 34px;
+        color: #576983;
+        font-size: 0.9rem;
+      }
+
+      .footer-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .footer-links {
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+      }
+
+      .footer-links a {
+        color: inherit;
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(16px);
+        animation: rise-in 540ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      }
+
+      .d-1 {
+        animation-delay: 120ms;
+      }
+
+      .d-2 {
+        animation-delay: 240ms;
+      }
+
+      @keyframes rise-in {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .reveal {
+          animation: none;
+          opacity: 1;
+          transform: none;
+        }
+
+        .btn {
+          transition: none;
+        }
+      }
+
+      @media (max-width: 900px) {
+        .hero-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .feature-grid,
+        .steps {
+          grid-template-columns: 1fr;
+        }
+
+        .cta {
+          padding: 26px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header class="topbar">
+      <div class="wrap topbar-inner">
+        <div class="brand"><span class="brand-mark">MB</span>movie-browser</div>
+        <a class="btn btn-primary" href="#download">App Storeで見る</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="wrap hero-grid">
+          <div class="reveal">
+            <span class="pill">macOS専用アプリ</span>
+            <h1>動画探しを、<br />スクロールだけで。</h1>
+            <p>
+              movie-browser はフォルダ内の動画をサムネイル一覧で素早く把握できる
+              Mac向けブラウザです。ファイル名を忘れても、見た目で目的の動画にたどり着けます。
+            </p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" id="download" href="https://apps.apple.com/" target="_blank" rel="noreferrer">ダウンロード</a>
+              <a class="btn btn-secondary" href="#features">機能を見る</a>
+            </div>
+            <div class="hero-note">対応OS: macOS 14以降（想定）</div>
+          </div>
+
+          <aside class="preview reveal d-1" aria-label="アプリ画面イメージ">
+            <div class="preview-title">Library Preview</div>
+            <div class="clip-grid">
+              <article class="clip">
+                <div class="clip-thumb"></div>
+                <div class="clip-meta">travel_001.mov</div>
+              </article>
+              <article class="clip">
+                <div class="clip-thumb"></div>
+                <div class="clip-meta">event_082.mp4</div>
+              </article>
+              <article class="clip">
+                <div class="clip-thumb"></div>
+                <div class="clip-meta">vlog_take03.mkv</div>
+              </article>
+              <article class="clip">
+                <div class="clip-thumb"></div>
+                <div class="clip-meta">promo_final.mp4</div>
+              </article>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="features">
+        <div class="wrap">
+          <div class="section-head reveal">
+            <h2>必要な機能だけ、速く。</h2>
+            <p class="lead">重い管理機能ではなく、日常の動画確認を最短化するための設計です。</p>
+          </div>
+
+          <div class="feature-grid">
+            <article class="card reveal d-1">
+              <div class="badge">01</div>
+              <h3>サムネイルで一覧把握</h3>
+              <p>ファイル名ベースではなく、映像の見た目で直感的に探せます。</p>
+            </article>
+            <article class="card reveal d-1">
+              <div class="badge">02</div>
+              <h3>フォルダ単位で即ブラウズ</h3>
+              <p>よく使う保存先を開くだけで、ライブラリ化せずにそのまま確認できます。</p>
+            </article>
+            <article class="card reveal d-1">
+              <div class="badge">03</div>
+              <h3>軽量でストレスが少ない</h3>
+              <p>バックグラウンド処理中心で、操作中のテンポを崩しにくい動作を重視しています。</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap">
+          <div class="section-head reveal">
+            <h2>使い方は3ステップ</h2>
+          </div>
+          <div class="steps">
+            <article class="card reveal d-1">
+              <div class="step-number">STEP 1</div>
+              <h3>フォルダを選択</h3>
+              <p>最初に見たい動画フォルダを選びます。</p>
+            </article>
+            <article class="card reveal d-1">
+              <div class="step-number">STEP 2</div>
+              <h3>一覧から探す</h3>
+              <p>サムネイルをスクロールして、目当てのシーンを見つけます。</p>
+            </article>
+            <article class="card reveal d-1">
+              <div class="step-number">STEP 3</div>
+              <h3>そのまま再生</h3>
+              <p>クリックで再生し、確認作業を素早く進められます。</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap">
+          <div class="section-head reveal">
+            <h2>よくある質問</h2>
+          </div>
+          <div class="faq">
+            <details class="reveal d-1">
+              <summary>どの動画形式に対応していますか？</summary>
+              <p>一般的な動画形式に対応しています。詳細はApp Storeの説明欄で最新情報を確認してください。</p>
+            </details>
+            <details class="reveal d-1">
+              <summary>フォルダ外のファイルにはアクセスしますか？</summary>
+              <p>ユーザーが選択したフォルダを前提に動作します。</p>
+            </details>
+            <details class="reveal d-1">
+              <summary>不具合の問い合わせ先は？</summary>
+              <p>下部のサポートリンクから連絡できます。</p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap">
+          <div class="cta reveal d-2">
+            <h2>動画ライブラリ確認の時間を短くしよう。</h2>
+            <p>App Storeで配信中。まずは実際の操作感を試してみてください。</p>
+            <div class="cta-actions">
+              <a class="btn btn-light" href="https://apps.apple.com/" target="_blank" rel="noreferrer">App Storeへ</a>
+              <a class="btn btn-ghost" href="mailto:support@example.com">サポートへ連絡</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="wrap footer-row">
+        <div>© 2026 movie-browser</div>
+        <nav class="footer-links" aria-label="フッターリンク">
+          <a href="https://apps.apple.com/" target="_blank" rel="noreferrer">App Store</a>
+          <a href="/support.html">Support</a>
+          <a href="/privacy.html">Privacy</a>
+        </nav>
+      </div>
+    </footer>
+  </body>
+</html>
