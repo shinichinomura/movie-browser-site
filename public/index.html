@@ -3,18 +3,19 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>movie-browser | Macで動画を速く探せるブラウザ</title>
+    <title>SceneStrip | ローカル動画をサムネイルで管理</title>
     <meta
       name="description"
-      content="movie-browserは、フォルダ内の動画をサムネイル一覧で高速にブラウズできるmacOSアプリです。"
+      content="SceneStripは、選択フォルダ内のローカル動画を一覧表示し、シーンごとのサムネイル付きで管理できるmacOSアプリです。"
     />
-    <meta property="og:title" content="movie-browser" />
+    <meta property="og:title" content="SceneStrip" />
     <meta
       property="og:description"
-      content="Macで動画を速く探せる、軽量ビデオブラウザ。"
+      content="SceneStripは、選択フォルダ内のローカル動画を一覧表示し、シーンごとのサムネイル付きで管理できるmacOSアプリです。"
     />
     <meta property="og:type" content="website" />
     <meta name="theme-color" content="#102030" />
+    <link rel="icon" type="image/png" href="assets/scenestrip-app-icon.png" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -88,13 +89,15 @@
         width: 34px;
         aspect-ratio: 1;
         border-radius: 10px;
-        background:
-          linear-gradient(135deg, rgba(21, 101, 192, 0.95), rgba(14, 165, 160, 0.95));
-        color: #fff;
-        display: grid;
-        place-items: center;
-        box-shadow: 0 10px 18px rgba(21, 101, 192, 0.35);
-        font-size: 0.9rem;
+        overflow: hidden;
+        box-shadow: 0 8px 16px rgba(16, 22, 34, 0.25);
+      }
+
+      .brand-mark img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
       }
 
       .btn {
@@ -183,56 +186,12 @@
       }
 
       .preview {
-        background: linear-gradient(170deg, #102030 10%, #192f4b 90%);
-        color: #e6f3ff;
-        border-radius: calc(var(--radius) + 8px);
-        padding: 22px;
-        box-shadow: var(--shadow);
-        position: relative;
-        overflow: hidden;
+        padding: 0;
       }
 
-      .preview::after {
-        content: "";
-        position: absolute;
-        inset: auto -16% -44% auto;
-        width: 250px;
-        aspect-ratio: 1;
-        border-radius: 50%;
-        background: radial-gradient(circle, rgba(14, 165, 160, 0.36), rgba(14, 165, 160, 0));
-      }
-
-      .preview-title {
-        font-size: 0.86rem;
-        opacity: 0.88;
-      }
-
-      .clip-grid {
-        margin-top: 14px;
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
-      }
-
-      .clip {
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 12px;
-        padding: 9px;
-        background: rgba(255, 255, 255, 0.05);
-      }
-
-      .clip-thumb {
+      .preview-shot {
         width: 100%;
-        aspect-ratio: 16 / 9;
-        border-radius: 8px;
-        background:
-          linear-gradient(155deg, rgba(21, 101, 192, 0.95), rgba(14, 165, 160, 0.92));
-      }
-
-      .clip-meta {
-        margin-top: 6px;
-        font-size: 0.76rem;
-        opacity: 0.92;
+        border-radius: 12px;
       }
 
       section {
@@ -443,8 +402,13 @@
   <body>
     <header class="topbar">
       <div class="wrap topbar-inner">
-        <div class="brand"><span class="brand-mark">MB</span>movie-browser</div>
-        <a class="btn btn-primary" href="#download">App Storeで見る</a>
+        <div class="brand">
+          <span class="brand-mark">
+            <img src="assets/scenestrip-app-icon.png" alt="SceneStrip icon" />
+          </span>
+          SceneStrip
+        </div>
+        <a class="btn btn-primary" href="https://apps.apple.com/jp/app/scenestrip/id6759131614" target="_blank" rel="noreferrer">App Storeで見る</a>
       </div>
     </header>
 
@@ -453,38 +417,22 @@
         <div class="wrap hero-grid">
           <div class="reveal">
             <span class="pill">macOS専用アプリ</span>
-            <h1>動画探しを、<br />スクロールだけで。</h1>
+            <h1>ローカル動画を、<br />サムネイルで管理。</h1>
             <p>
-              movie-browser はフォルダ内の動画をサムネイル一覧で素早く把握できる
-              Mac向けブラウザです。ファイル名を忘れても、見た目で目的の動画にたどり着けます。
+              SceneStrip は、選択したフォルダ内の動画をサムネイル付きで一覧表示できる動画管理アプリです（Windowsの「ホワイトブラウザ」に相当）。
             </p>
             <div class="hero-actions">
-              <a class="btn btn-primary" id="download" href="https://apps.apple.com/" target="_blank" rel="noreferrer">ダウンロード</a>
+              <a class="btn btn-primary" id="download" href="https://apps.apple.com/jp/app/scenestrip/id6759131614" target="_blank" rel="noreferrer">ダウンロード</a>
               <a class="btn btn-secondary" href="#features">機能を見る</a>
             </div>
-            <div class="hero-note">対応OS: macOS 14以降（想定）</div>
+            <div class="hero-note">
+              対応OS: macOS 26.2以降<br />
+              対応形式: mp4, mov, m4v, avi, mkv（avi, mkv は Apple Silicon のみ）
+            </div>
           </div>
 
           <aside class="preview reveal d-1" aria-label="アプリ画面イメージ">
-            <div class="preview-title">Library Preview</div>
-            <div class="clip-grid">
-              <article class="clip">
-                <div class="clip-thumb"></div>
-                <div class="clip-meta">travel_001.mov</div>
-              </article>
-              <article class="clip">
-                <div class="clip-thumb"></div>
-                <div class="clip-meta">event_082.mp4</div>
-              </article>
-              <article class="clip">
-                <div class="clip-thumb"></div>
-                <div class="clip-meta">vlog_take03.mkv</div>
-              </article>
-              <article class="clip">
-                <div class="clip-thumb"></div>
-                <div class="clip-meta">promo_final.mp4</div>
-              </article>
-            </div>
+            <img class="preview-shot" src="assets/ja.png" alt="SceneStrip screenshot (ja)" />
           </aside>
         </div>
       </section>
@@ -492,25 +440,25 @@
       <section id="features">
         <div class="wrap">
           <div class="section-head reveal">
-            <h2>必要な機能だけ、速く。</h2>
-            <p class="lead">重い管理機能ではなく、日常の動画確認を最短化するための設計です。</p>
+            <h2>必要な機能をシンプルに。高速な動作。</h2>
+            <p class="lead">ローカル動画の確認と整理に必要な機能を、シンプルにまとめています。</p>
           </div>
 
           <div class="feature-grid">
             <article class="card reveal d-1">
               <div class="badge">01</div>
-              <h3>サムネイルで一覧把握</h3>
-              <p>ファイル名ベースではなく、映像の見た目で直感的に探せます。</p>
+              <h3>10枚サムネイル表示</h3>
+              <p>各動画を等間隔で抽出した10枚のサムネイルで、内容を時系列に確認できます。</p>
             </article>
             <article class="card reveal d-1">
               <div class="badge">02</div>
-              <h3>フォルダ単位で即ブラウズ</h3>
-              <p>よく使う保存先を開くだけで、ライブラリ化せずにそのまま確認できます。</p>
+              <h3>お気に入り管理</h3>
+              <p>動画のお気に入り登録/解除に対応。必要な動画だけを絞って見返せます。</p>
             </article>
             <article class="card reveal d-1">
               <div class="badge">03</div>
-              <h3>軽量でストレスが少ない</h3>
-              <p>バックグラウンド処理中心で、操作中のテンポを崩しにくい動作を重視しています。</p>
+              <h3>端末内で完結</h3>
+              <p>処理はローカル完結。外部サーバー送信やトラッキングを行わない設計です。</p>
             </article>
           </div>
         </div>
@@ -529,13 +477,13 @@
             </article>
             <article class="card reveal d-1">
               <div class="step-number">STEP 2</div>
-              <h3>一覧から探す</h3>
-              <p>サムネイルをスクロールして、目当てのシーンを見つけます。</p>
+              <h3>一覧とサムネイルで確認</h3>
+              <p>メタ情報一覧と10枚サムネイルで、見たい動画を素早く特定します。</p>
             </article>
             <article class="card reveal d-1">
               <div class="step-number">STEP 3</div>
-              <h3>そのまま再生</h3>
-              <p>クリックで再生し、確認作業を素早く進められます。</p>
+              <h3>お気に入り登録・既定アプリ再生</h3>
+              <p>必要に応じてお気に入り登録し、クリックでmacOS既定アプリ再生できます。</p>
             </article>
           </div>
         </div>
@@ -549,15 +497,19 @@
           <div class="faq">
             <details class="reveal d-1">
               <summary>どの動画形式に対応していますか？</summary>
-              <p>一般的な動画形式に対応しています。詳細はApp Storeの説明欄で最新情報を確認してください。</p>
+              <p>標準対応は mp4, mov, m4v, avi, mkv です。avi / mkv は Apple Silicon 環境で対応します。</p>
             </details>
             <details class="reveal d-1">
-              <summary>フォルダ外のファイルにはアクセスしますか？</summary>
-              <p>ユーザーが選択したフォルダを前提に動作します。</p>
+              <summary>データは外部に送信されますか？</summary>
+              <p>いいえ。処理は端末内で完結し、外部サーバー送信やトラッキングは行いません。</p>
             </details>
             <details class="reveal d-1">
-              <summary>不具合の問い合わせ先は？</summary>
-              <p>下部のサポートリンクから連絡できます。</p>
+              <summary>一覧にはどんな情報が表示されますか？</summary>
+              <p>ファイル名、パス、サイズ、更新日時、再生時間を一覧表示します。</p>
+            </details>
+            <details class="reveal d-1">
+              <summary>動画はどこで再生されますか？</summary>
+              <p>動画クリックで、macOSの既定アプリで再生します。</p>
             </details>
           </div>
         </div>
@@ -566,11 +518,10 @@
       <section>
         <div class="wrap">
           <div class="cta reveal d-2">
-            <h2>動画ライブラリ確認の時間を短くしよう。</h2>
-            <p>App Storeで配信中。まずは実際の操作感を試してみてください。</p>
+            <p>App Storeで配信中。価格や最新仕様はApp Storeページで確認できます。</p>
             <div class="cta-actions">
-              <a class="btn btn-light" href="https://apps.apple.com/" target="_blank" rel="noreferrer">App Storeへ</a>
-              <a class="btn btn-ghost" href="mailto:support@example.com">サポートへ連絡</a>
+              <a class="btn btn-light" href="https://apps.apple.com/jp/app/scenestrip/id6759131614" target="_blank" rel="noreferrer">App Storeへ</a>
+              <a class="btn btn-ghost" href="https://forms.gle/4u6ZD7acUpVw8z4b6" target="_blank" rel="noreferrer">サポートへ連絡</a>
             </div>
           </div>
         </div>
@@ -579,11 +530,11 @@
 
     <footer>
       <div class="wrap footer-row">
-        <div>© 2026 movie-browser</div>
+        <div>© 2026 SceneStrip</div>
         <nav class="footer-links" aria-label="フッターリンク">
-          <a href="https://apps.apple.com/" target="_blank" rel="noreferrer">App Store</a>
-          <a href="/support.html">Support</a>
-          <a href="/privacy.html">Privacy</a>
+          <a href="https://apps.apple.com/jp/app/scenestrip/id6759131614" target="_blank" rel="noreferrer">App Store</a>
+          <a href="https://forms.gle/4u6ZD7acUpVw8z4b6" target="_blank" rel="noreferrer">Support</a>
+          <a href="https://docs.google.com/document/d/150o3WdF3f2SHwpboAF20QNckcXBUy5A-2OUkiviFxxc/edit?tab=t.0#heading=h.ix85kdkygujk" target="_blank" rel="noreferrer">Privacy</a>
         </nav>
       </div>
     </footer>
