@@ -75,6 +75,12 @@
         padding: 14px 0;
       }
 
+      .topbar-actions {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+      }
+
       .brand {
         display: inline-flex;
         align-items: center;
@@ -127,6 +133,17 @@
         color: var(--ink-0);
         border-color: var(--line);
         background: #fff;
+      }
+
+      .lang-link {
+        color: var(--ink-1);
+        font-size: 0.9rem;
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      .lang-link:hover {
+        text-decoration: underline;
       }
 
       .hero {
@@ -396,6 +413,7 @@
           padding: 26px;
         }
       }
+
     </style>
   </head>
 
@@ -408,7 +426,10 @@
           </span>
           SceneStrip
         </div>
-        <a class="btn btn-primary" href="https://apps.apple.com/jp/app/scenestrip/id6759131614" target="_blank" rel="noreferrer">App Storeで見る</a>
+        <div class="topbar-actions">
+          <a class="lang-link" href="en/">English</a>
+          <a class="btn btn-primary" href="https://apps.apple.com/jp/app/scenestrip/id6759131614" target="_blank" rel="noreferrer">App Storeで見る</a>
+        </div>
       </div>
     </header>
 
