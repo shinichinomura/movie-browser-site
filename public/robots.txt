@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://scene-strip.pages.dev/sitemap.xml

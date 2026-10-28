@@ -3,19 +3,30 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SceneStrip | ローカル動画をサムネイルで管理</title>
-    <meta
-      name="description"
-      content="SceneStripは、選択フォルダ内のローカル動画を一覧表示し、シーンごとのサムネイル付きで管理できるmacOSアプリです。"
-    />
-    <meta property="og:title" content="SceneStrip" />
-    <meta
-      property="og:description"
-      content="SceneStripは、選択フォルダ内のローカル動画を一覧表示し、シーンごとのサムネイル付きで管理できるmacOSアプリです。"
-    />
+    <meta name="google-site-verification" content="QAWB_DFqbJ67yoJN5sh-e6iWXcxPh6-TODOH9izL2sg" />
+    <title>SceneStrip | Macで動画をサムネイル一覧で整理・確認するアプリ</title>
+    <meta name="description" content="SceneStrip は、フォルダ内のローカル動画を1本あたり10枚のサムネイル付きで一覧表示し、再生前に中身を確認できる macOS 用の動画整理アプリです。お気に入り・Finderタグ・ブックマークに対応。処理はすべて Mac 内で完結します。" />
+    <link rel="canonical" href="https://scene-strip.pages.dev/" />
+    <link rel="alternate" hreflang="ja" href="https://scene-strip.pages.dev/" />
+    <link rel="alternate" hreflang="en" href="https://scene-strip.pages.dev/en/" />
+    <link rel="alternate" hreflang="zh-Hans" href="https://scene-strip.pages.dev/zh/" />
+    <link rel="alternate" hreflang="x-default" href="https://scene-strip.pages.dev/en/" />
+    <meta property="og:site_name" content="SceneStrip" />
+    <meta property="og:title" content="SceneStrip | Macで動画をサムネイル一覧で整理・確認するアプリ" />
+    <meta property="og:description" content="SceneStrip は、フォルダ内のローカル動画を1本あたり10枚のサムネイル付きで一覧表示し、再生前に中身を確認できる macOS 用の動画整理アプリです。お気に入り・Finderタグ・ブックマークに対応。処理はすべて Mac 内で完結します。" />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://scene-strip.pages.dev/" />
+    <meta property="og:image" content="https://scene-strip.pages.dev/assets/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="ja_JP" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="SceneStrip | Macで動画をサムネイル一覧で整理・確認するアプリ" />
+    <meta name="twitter:description" content="SceneStrip は、フォルダ内のローカル動画を1本あたり10枚のサムネイル付きで一覧表示し、再生前に中身を確認できる macOS 用の動画整理アプリです。お気に入り・Finderタグ・ブックマークに対応。処理はすべて Mac 内で完結します。" />
+    <meta name="twitter:image" content="https://scene-strip.pages.dev/assets/og.png" />
     <meta name="theme-color" content="#102030" />
     <link rel="icon" type="image/png" href="assets/scenestrip-app-icon.png" />
+    <link rel="apple-touch-icon" href="assets/scenestrip-app-icon.png" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -23,400 +34,26 @@
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Space+Grotesk:wght@500;700&display=swap"
       rel="stylesheet"
     />
-
-    <style>
-      :root {
-        --bg-0: #f4f6f8;
-        --bg-1: #ffffff;
-        --ink-0: #101622;
-        --ink-1: #415068;
-        --line: #d8e0eb;
-        --accent: #1565c0;
-        --accent-2: #0ea5a0;
-        --accent-soft: #e4f1ff;
-        --radius: 18px;
-        --shadow: 0 18px 38px rgba(16, 22, 34, 0.1);
-      }
-
-      * {
-        box-sizing: border-box;
-      }
-
-      body {
-        margin: 0;
-        min-height: 100vh;
-        color: var(--ink-0);
-        background:
-          radial-gradient(circle at 85% 0%, #c6e7ff 0%, rgba(198, 231, 255, 0) 45%),
-          radial-gradient(circle at 0% 40%, #d8fff7 0%, rgba(216, 255, 247, 0) 36%),
-          var(--bg-0);
-        font-family: "Noto Sans JP", sans-serif;
-        line-height: 1.6;
-      }
-
-      .wrap {
-        width: min(1080px, 92vw);
-        margin: 0 auto;
-      }
-
-      .topbar {
-        position: sticky;
-        top: 0;
-        backdrop-filter: blur(8px);
-        background: rgba(244, 246, 248, 0.78);
-        border-bottom: 1px solid rgba(216, 224, 235, 0.8);
-        z-index: 10;
-      }
-
-      .topbar-inner {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 14px 0;
-      }
-
-      .topbar-actions {
-        display: inline-flex;
-        align-items: center;
-        gap: 12px;
-      }
-
-      .brand {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        font-family: "Space Grotesk", sans-serif;
-        font-size: 1.1rem;
-        font-weight: 700;
-        letter-spacing: 0.02em;
-      }
-
-      .brand-mark {
-        width: 34px;
-        aspect-ratio: 1;
-        border-radius: 10px;
-        overflow: hidden;
-        box-shadow: 0 8px 16px rgba(16, 22, 34, 0.25);
-      }
-
-      .brand-mark img {
-        display: block;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-
-      .btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 999px;
-        border: 1px solid transparent;
-        padding: 10px 18px;
-        font-size: 0.95rem;
-        font-weight: 700;
-        text-decoration: none;
-        transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
-      }
-
-      .btn-primary {
-        color: #fff;
-        background: linear-gradient(120deg, var(--accent), #127ab3);
-        box-shadow: 0 10px 22px rgba(21, 101, 192, 0.35);
-      }
-
-      .btn-primary:hover {
-        transform: translateY(-1px);
-      }
-
-      .btn-secondary {
-        color: var(--ink-0);
-        border-color: var(--line);
-        background: #fff;
-      }
-
-      .lang-link {
-        color: var(--ink-1);
-        font-size: 0.9rem;
-        font-weight: 700;
-        text-decoration: none;
-      }
-
-      .lang-link:hover {
-        text-decoration: underline;
-      }
-
-      .hero {
-        padding: 70px 0 28px;
-      }
-
-      .hero-grid {
-        display: grid;
-        gap: 32px;
-        grid-template-columns: 1.08fr 0.92fr;
-        align-items: center;
-      }
-
-      .pill {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        padding: 6px 11px;
-        border-radius: 999px;
-        background: var(--accent-soft);
-        color: var(--accent);
-        font-size: 0.78rem;
-        font-weight: 700;
-      }
-
-      h1,
-      h2,
-      h3 {
-        margin: 0;
-        line-height: 1.15;
-      }
-
-      h1 {
-        margin-top: 16px;
-        font-size: clamp(2.1rem, 5vw, 3.3rem);
-        font-weight: 900;
-        letter-spacing: -0.02em;
-      }
-
-      .hero p {
-        margin: 16px 0 0;
-        font-size: 1.05rem;
-        color: var(--ink-1);
-      }
-
-      .hero-actions {
-        margin-top: 28px;
-        display: flex;
-        gap: 12px;
-        flex-wrap: wrap;
-      }
-
-      .hero-note {
-        margin-top: 14px;
-        font-size: 0.88rem;
-        color: #5a6d87;
-      }
-
-      .preview {
-        padding: 0;
-      }
-
-      .preview-shot {
-        width: 100%;
-        border-radius: 12px;
-      }
-
-      section {
-        padding: 48px 0;
-      }
-
-      .section-head {
-        margin-bottom: 20px;
-      }
-
-      h2 {
-        font-size: clamp(1.6rem, 3.5vw, 2.3rem);
-        font-weight: 800;
-        letter-spacing: -0.01em;
-      }
-
-      .lead {
-        margin-top: 10px;
-        color: var(--ink-1);
-      }
-
-      .feature-grid {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 14px;
-      }
-
-      .card {
-        background: var(--bg-1);
-        border-radius: var(--radius);
-        padding: 22px;
-        border: 1px solid var(--line);
-        box-shadow: 0 8px 20px rgba(16, 22, 34, 0.05);
-      }
-
-      .card h3 {
-        margin-top: 6px;
-        font-size: 1.1rem;
-      }
-
-      .card p {
-        margin: 8px 0 0;
-        font-size: 0.95rem;
-        color: var(--ink-1);
-      }
-
-      .badge {
-        width: 34px;
-        aspect-ratio: 1;
-        border-radius: 10px;
-        display: grid;
-        place-items: center;
-        background: #ecf5ff;
-        color: var(--accent);
-        font-size: 0.9rem;
-        font-weight: 900;
-      }
-
-      .steps {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 14px;
-      }
-
-      .step-number {
-        font-family: "Space Grotesk", sans-serif;
-        font-weight: 700;
-        color: #5f7ea7;
-      }
-
-      .faq {
-        display: grid;
-        gap: 10px;
-      }
-
-      details {
-        background: #fff;
-        border: 1px solid var(--line);
-        border-radius: 14px;
-        padding: 14px 16px;
-      }
-
-      summary {
-        cursor: pointer;
-        font-weight: 700;
-      }
-
-      details p {
-        margin: 9px 0 0;
-        color: var(--ink-1);
-      }
-
-      .cta {
-        background: linear-gradient(150deg, #0f2f4c, #10426a);
-        border-radius: calc(var(--radius) + 6px);
-        color: #f0f7ff;
-        padding: 34px;
-        overflow: hidden;
-        position: relative;
-      }
-
-      .cta::before {
-        content: "";
-        position: absolute;
-        right: -60px;
-        top: -60px;
-        width: 170px;
-        aspect-ratio: 1;
-        background: radial-gradient(circle, rgba(14, 165, 160, 0.42), rgba(14, 165, 160, 0));
-      }
-
-      .cta p {
-        color: rgba(240, 247, 255, 0.82);
-        margin-top: 10px;
-      }
-
-      .cta-actions {
-        margin-top: 18px;
-        display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
-      }
-
-      .btn-light {
-        background: #fff;
-        color: #102030;
-      }
-
-      .btn-ghost {
-        border-color: rgba(255, 255, 255, 0.42);
-        color: #fff;
-        background: transparent;
-      }
-
-      footer {
-        padding: 24px 0 34px;
-        color: #576983;
-        font-size: 0.9rem;
-      }
-
-      .footer-row {
-        display: flex;
-        justify-content: space-between;
-        gap: 12px;
-        flex-wrap: wrap;
-      }
-
-      .footer-links {
-        display: flex;
-        gap: 14px;
-        flex-wrap: wrap;
-      }
-
-      .footer-links a {
-        color: inherit;
-      }
-
-      .reveal {
-        opacity: 0;
-        transform: translateY(16px);
-        animation: rise-in 540ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
-      }
-
-      .d-1 {
-        animation-delay: 120ms;
-      }
-
-      .d-2 {
-        animation-delay: 240ms;
-      }
-
-      @keyframes rise-in {
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      @media (prefers-reduced-motion: reduce) {
-        .reveal {
-          animation: none;
-          opacity: 1;
-          transform: none;
-        }
-
-        .btn {
-          transition: none;
-        }
-      }
-
-      @media (max-width: 900px) {
-        .hero-grid {
-          grid-template-columns: 1fr;
-        }
-
-        .feature-grid,
-        .steps {
-          grid-template-columns: 1fr;
-        }
-
-        .cta {
-          padding: 26px;
-        }
-      }
-
-    </style>
+    <link rel="stylesheet" href="assets/site.css" />
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "SceneStrip",
+  "operatingSystem": "macOS 14.0 or later",
+  "applicationCategory": "MultimediaApplication",
+  "description": "SceneStrip は、フォルダ内のローカル動画を1本あたり10枚のサムネイル付きで一覧表示し、再生前に中身を確認できる macOS 用の動画整理アプリです。お気に入り・Finderタグ・ブックマークに対応。処理はすべて Mac 内で完結します。",
+  "url": "https://scene-strip.pages.dev/",
+  "image": "https://scene-strip.pages.dev/assets/og.png",
+  "installUrl": "https://apps.apple.com/app/id6759131614",
+  "author": {
+    "@type": "Person",
+    "name": "Shinichi Nomura"
+  },
+  "inLanguage": "ja"
+}
+    </script>
   </head>
-
   <body>
     <header class="topbar">
       <div class="wrap topbar-inner">
@@ -428,7 +65,8 @@
         </div>
         <div class="topbar-actions">
           <a class="lang-link" href="en/">English</a>
-          <a class="btn btn-primary" href="https://apps.apple.com/jp/app/scenestrip/id6759131614" target="_blank" rel="noreferrer">App Storeで見る</a>
+          <a class="lang-link" href="zh/">简体中文</a>
+          <a class="btn btn-primary" href="https://apps.apple.com/jp/app/apple-store/id6759131614?pt=271041&ct=lp-ja&mt=8" target="_blank" rel="noreferrer">App Storeで見る</a>
         </div>
       </div>
     </header>
@@ -437,23 +75,22 @@
       <section class="hero">
         <div class="wrap hero-grid">
           <div class="reveal">
-            <span class="pill">macOS専用アプリ</span>
+            <span class="pill">macOS 専用アプリ</span>
             <h1>ローカル動画を、<br />サムネイルで管理。</h1>
             <p>
-              SceneStrip は、選択したフォルダ内の動画をサムネイル付きで一覧表示できる動画管理アプリです（Windowsの「ホワイトブラウザ」に相当）。
+              SceneStrip は、選択したフォルダ内の動画を1本あたり10枚のサムネイル付きで一覧表示する動画整理アプリです（Windows の「ホワイトブラウザ」に相当）。Finder のアイコンでは分からない「中身」を、再生する前に確認できます。
             </p>
             <div class="hero-actions">
-              <a class="btn btn-primary" id="download" href="https://apps.apple.com/jp/app/scenestrip/id6759131614" target="_blank" rel="noreferrer">ダウンロード</a>
+              <a class="btn btn-primary" id="download" href="https://apps.apple.com/jp/app/apple-store/id6759131614?pt=271041&ct=lp-ja&mt=8" target="_blank" rel="noreferrer">ダウンロード</a>
               <a class="btn btn-secondary" href="#features">機能を見る</a>
             </div>
             <div class="hero-note">
-              対応OS: macOS 26.2以降<br />
-              対応形式: mp4, mov, m4v, avi, mkv（avi, mkv は Apple Silicon のみ）
+              対応OS: macOS 14 以降（Apple Silicon / Intel）<br />対応形式: mp4, mov, m4v, avi, mkv（avi, mkv は Apple Silicon のみ）
             </div>
           </div>
 
-          <aside class="preview reveal d-1" aria-label="アプリ画面イメージ">
-            <img class="preview-shot" src="assets/ja.png" alt="SceneStrip screenshot (ja)" />
+          <aside class="preview reveal d-1" aria-label="SceneStrip の画面（日本語）">
+            <img class="preview-shot" src="assets/ja.png" alt="SceneStrip の画面（日本語）" width="3420" height="2146" loading="eager" />
           </aside>
         </div>
       </section>
@@ -469,17 +106,32 @@
             <article class="card reveal d-1">
               <div class="badge">01</div>
               <h3>10枚サムネイル表示</h3>
-              <p>各動画を等間隔で抽出した10枚のサムネイルで、内容を時系列に確認できます。</p>
+              <p>各動画を等間隔で抽出した10枚のサムネイルで、内容を時系列に確認できます。サムネイルはキャッシュされ、2回目以降は即表示されます。</p>
             </article>
             <article class="card reveal d-1">
               <div class="badge">02</div>
-              <h3>お気に入り管理</h3>
-              <p>動画のお気に入り登録/解除に対応。必要な動画だけを絞って見返せます。</p>
+              <h3>アプリ内再生とブックマーク</h3>
+              <p>行をクリックするとアプリ内で再生。好きな位置をブックマークして、すぐに呼び出せます。</p>
             </article>
             <article class="card reveal d-1">
               <div class="badge">03</div>
+              <h3>お気に入り・タグで絞り込み</h3>
+              <p>お気に入り、Mac の Finder タグ、アプリ独自のタグで動画を整理し、一覧を絞り込めます。</p>
+            </article>
+            <article class="card reveal d-1">
+              <div class="badge">04</div>
+              <h3>並び順と表示サイズ</h3>
+              <p>撮影日・ファイル名・最近再生した順で並べ替え。サムネイルの表示サイズはスライダーで調整できます。</p>
+            </article>
+            <article class="card reveal d-1">
+              <div class="badge">05</div>
+              <h3>外付けディスクでも引き継ぎ</h3>
+              <p>お気に入りとタグはフォルダ内のサイドカーファイルに保存。別の Mac に接続しても引き継げます。</p>
+            </article>
+            <article class="card reveal d-1">
+              <div class="badge">06</div>
               <h3>端末内で完結</h3>
-              <p>処理はローカル完結。外部サーバー送信やトラッキングを行わない設計です。</p>
+              <p>処理はすべて Mac 内で完結。外部サーバーへの送信やトラッキングは行いません。アクセスするのは選択したフォルダだけです。</p>
             </article>
           </div>
         </div>
@@ -494,23 +146,23 @@
             <article class="card reveal d-1">
               <div class="step-number">STEP 1</div>
               <h3>フォルダを選択</h3>
-              <p>最初に見たい動画フォルダを選びます。</p>
+              <p>管理したい動画フォルダを登録します（最大10件）。</p>
             </article>
             <article class="card reveal d-1">
               <div class="step-number">STEP 2</div>
               <h3>一覧とサムネイルで確認</h3>
-              <p>メタ情報一覧と10枚サムネイルで、見たい動画を素早く特定します。</p>
+              <p>メタ情報と10枚サムネイルで、見たい動画を素早く特定します。</p>
             </article>
             <article class="card reveal d-1">
               <div class="step-number">STEP 3</div>
-              <h3>お気に入り登録・既定アプリ再生</h3>
-              <p>必要に応じてお気に入り登録し、クリックでmacOS既定アプリ再生できます。</p>
+              <h3>整理して再生</h3>
+              <p>お気に入りやタグで整理し、クリックでアプリ内再生。ブックマークで見たい位置へ戻れます。</p>
             </article>
           </div>
         </div>
       </section>
 
-      <section>
+      <section id="faq">
         <div class="wrap">
           <div class="section-head reveal">
             <h2>よくある質問</h2>
@@ -526,11 +178,19 @@
             </details>
             <details class="reveal d-1">
               <summary>一覧にはどんな情報が表示されますか？</summary>
-              <p>ファイル名、パス、サイズ、更新日時、再生時間を一覧表示します。</p>
+              <p>ファイル名、パス、サイズ、更新日時、再生時間、解像度を表示します。</p>
             </details>
             <details class="reveal d-1">
               <summary>動画はどこで再生されますか？</summary>
-              <p>動画クリックで、macOSの既定アプリで再生します。</p>
+              <p>行クリックでアプリ内プレイヤーが開きます。設定で macOS の既定アプリで開くように変更することもできます。</p>
+            </details>
+            <details class="reveal d-1">
+              <summary>お気に入りやタグは別の Mac でも使えますか？</summary>
+              <p>はい。お気に入りとアプリ独自タグは管理フォルダ内のサイドカーファイルに保存されるため、外付けディスクごと別の Mac に接続しても引き継がれます。</p>
+            </details>
+            <details class="reveal d-1">
+              <summary>フォルダの変更は自動で反映されますか？</summary>
+              <p>いいえ。ツールバーの「更新」で差分（追加・変更・削除）だけを再走査します。</p>
             </details>
           </div>
         </div>
@@ -539,10 +199,10 @@
       <section>
         <div class="wrap">
           <div class="cta reveal d-2">
-            <p>App Storeで配信中。価格や最新仕様はApp Storeページで確認できます。</p>
+            <p>App Store で配信中。価格や最新の更新内容は App Store ページで確認できます。</p>
             <div class="cta-actions">
-              <a class="btn btn-light" href="https://apps.apple.com/jp/app/scenestrip/id6759131614" target="_blank" rel="noreferrer">App Storeへ</a>
-              <a class="btn btn-ghost" href="https://forms.gle/4u6ZD7acUpVw8z4b6" target="_blank" rel="noreferrer">サポートへ連絡</a>
+              <a class="btn btn-light" href="https://apps.apple.com/jp/app/apple-store/id6759131614?pt=271041&ct=lp-ja&mt=8" target="_blank" rel="noreferrer">App Store へ</a>
+              <a class="btn btn-ghost" href="support/">サポートへ連絡</a>
             </div>
           </div>
         </div>
@@ -553,9 +213,9 @@
       <div class="wrap footer-row">
         <div>© 2026 SceneStrip</div>
         <nav class="footer-links" aria-label="フッターリンク">
-          <a href="https://apps.apple.com/jp/app/scenestrip/id6759131614" target="_blank" rel="noreferrer">App Store</a>
-          <a href="https://forms.gle/4u6ZD7acUpVw8z4b6" target="_blank" rel="noreferrer">Support</a>
-          <a href="https://docs.google.com/document/d/150o3WdF3f2SHwpboAF20QNckcXBUy5A-2OUkiviFxxc/edit?tab=t.0#heading=h.ix85kdkygujk" target="_blank" rel="noreferrer">Privacy</a>
+          <a href="https://apps.apple.com/jp/app/apple-store/id6759131614?pt=271041&ct=lp-ja&mt=8" target="_blank" rel="noreferrer">App Store</a>
+          <a href="support/">サポート</a>
+          <a href="https://docs.google.com/document/d/150o3WdF3f2SHwpboAF20QNckcXBUy5A-2OUkiviFxxc/edit?tab=t.0#heading=h.ix85kdkygujk" target="_blank" rel="noreferrer">プライバシーポリシー</a>
         </nav>
       </div>
     </footer>
