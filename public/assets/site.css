@@ -340,6 +340,20 @@ footer {
   color: inherit;
 }
 
+.footer-badges {
+  margin-bottom: 14px;
+}
+
+.footer-badges a {
+  display: inline-block;
+  line-height: 0;
+}
+
+.footer-badges img {
+  height: 40px;
+  width: auto;
+}
+
 .reveal {
   opacity: 0;
   transform: translateY(16px);
