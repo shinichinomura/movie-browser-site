@@ -65,6 +65,38 @@
   "mainEntity": [
     {
       "@type": "Question",
+      "name": "Finder 看不出视频里有什么。能不逐个打开就确认内容吗？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Finder 的图标只显示开头附近的一帧。把文件夹添加到 SceneStrip 后，每个视频会从头到尾等间隔截取 10 帧并横向排列，不用播放就能大致看出哪里拍了什么。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "外置 SSD 上的 GoPro 或 iPhone 视频，能不导入“照片”应用就整理吗？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "可以。SceneStrip 直接读取文件夹，不导入也不复制文件。收藏和标签保存在文件夹内的 sidecar 文件中，把 SSD 接到另一台 Mac 也能直接使用。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "和 Finder 的画廊视图或快速查看有什么不同？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "画廊视图和快速查看仍然是一次播放一个视频。SceneStrip 把文件夹内所有视频的 10 帧一起列出，缩略图会缓存，下次打开即时显示，还能按收藏和标签筛选、更改排序。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "是订阅制吗？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "不是。在 Mac App Store 一次性买断，价格见 App Store 页面。"
+      }
+    },
+    {
+      "@type": "Question",
       "name": "支持哪些视频格式？",
       "acceptedAnswer": {
         "@type": "Answer",
@@ -229,6 +261,22 @@
             <h2>常见问题</h2>
           </div>
           <div class="faq">
+            <details class="reveal d-1">
+              <summary>Finder 看不出视频里有什么。能不逐个打开就确认内容吗？</summary>
+              <p>Finder 的图标只显示开头附近的一帧。把文件夹添加到 SceneStrip 后，每个视频会从头到尾等间隔截取 10 帧并横向排列，不用播放就能大致看出哪里拍了什么。</p>
+            </details>
+            <details class="reveal d-1">
+              <summary>外置 SSD 上的 GoPro 或 iPhone 视频，能不导入“照片”应用就整理吗？</summary>
+              <p>可以。SceneStrip 直接读取文件夹，不导入也不复制文件。收藏和标签保存在文件夹内的 sidecar 文件中，把 SSD 接到另一台 Mac 也能直接使用。</p>
+            </details>
+            <details class="reveal d-1">
+              <summary>和 Finder 的画廊视图或快速查看有什么不同？</summary>
+              <p>画廊视图和快速查看仍然是一次播放一个视频。SceneStrip 把文件夹内所有视频的 10 帧一起列出，缩略图会缓存，下次打开即时显示，还能按收藏和标签筛选、更改排序。</p>
+            </details>
+            <details class="reveal d-1">
+              <summary>是订阅制吗？</summary>
+              <p>不是。在 Mac App Store 一次性买断，价格见 App Store 页面。</p>
+            </details>
             <details class="reveal d-1">
               <summary>支持哪些视频格式？</summary>
               <p>标准支持 mp4、mov、m4v、avi、mkv。avi / mkv 仅在 Apple Silicon 上支持。</p>
