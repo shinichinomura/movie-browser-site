@@ -29,6 +29,7 @@ public/
   support/index.html               # サポート窓口（App Store の Support URL の飛び先、noindex）
   404.html
   robots.txt / sitemap.xml         # ページを追加したら sitemap.xml に追記する
+  llms.txt                         # AI クローラー向けのアプリ概要（llms.txt 提案仕様。機能・価格・リンクを変えたら更新する）
   _headers / _redirects(未作成)
   googleedb568dd92322edb.html      # Google Search Console の検証ファイル（削除しない）
   assets/

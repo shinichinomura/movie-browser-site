@@ -1,0 +1,46 @@
+# SceneStrip
+
+> SceneStrip is a paid macOS app (one-time purchase) that lists the local videos in your folders with 10 evenly spaced thumbnails per file, so you can see what is inside a video before you press play. It reads folders in place, does not import or upload anything, and runs entirely on the Mac.
+
+Developer: Shinichi Nomura (indie developer, Japan). Distributed only through the Mac App Store.
+
+## What it does
+
+- Register up to 10 folders (local or external drives). SceneStrip scans them and shows every video with 10 thumbnails taken at equal intervals across its length.
+- Thumbnails and metadata are cached, so reopening a folder is instant. Refresh rescans only files that were added, changed or removed.
+- Shows file name, path, size, modified date, duration and resolution for each video.
+- Favorites, Finder tags (read-only) and SceneStrip's own tags, with filtering by any of them.
+- Sort by capture date, file name or recently played.
+- Built-in player with per-video bookmarks. Can be switched to open videos in the default macOS player instead.
+- Rename and move-to-Trash from inside the app.
+- Favorites and custom tags are stored in a small sidecar file inside the managed folder, so they travel with an external drive to another Mac.
+
+## What it does not do
+
+- No video editing, exporting or cloud sync.
+- No library import: files stay where they are.
+- No account, no upload, no tracking. All processing happens on the Mac.
+
+## Requirements and formats
+
+- macOS 14.0 or later.
+- Formats: mp4, mov, m4v, avi, mkv. avi and mkv are supported on Apple Silicon Macs only.
+
+## Price
+
+- One-time purchase on the Mac App Store. JPY 150 in Japan, USD 0.99 in the US (other storefronts vary).
+
+## Links
+
+- [Mac App Store](https://apps.apple.com/app/id6759131614): download and current price
+- [Product page (English)](https://scene-strip.pages.dev/en/)
+- [Product page (Japanese)](https://scene-strip.pages.dev/)
+- [Product page (Simplified Chinese)](https://scene-strip.pages.dev/zh/)
+- [Support](https://scene-strip.pages.dev/support/): contact form and FAQ
+- [AlternativeTo listing](https://alternativeto.net/software/scenestrip/)
+
+## Typical questions this app answers
+
+- How can I see what is inside many video files on a Mac without opening each one?
+- Is there a Mac app that shows multiple thumbnails per video, like a contact sheet, for a whole folder?
+- How do I organize GoPro, drone or iPhone videos on an external SSD with tags and favorites, without importing them into Photos?
