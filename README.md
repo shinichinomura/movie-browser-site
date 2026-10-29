@@ -36,6 +36,7 @@ public/
     og.png                         # OGP 画像 1200x630（ja.png から生成）
     ja.png                         # ヒーロー画像（アプリのスクリーンショット）
     scenestrip-app-icon.png
+    alternativeto-badge.svg          # AlternativeTo のバッジ（https://alternativeto.net/badges/ の Blue / Compact を自前ホスト。フッターからリンク）
 ```
 
 - 3 言語のページは同じ構造で、`<head>` に canonical / hreflang（ja, en, zh-Hans, x-default=en）/ OGP / JSON-LD（SoftwareApplication）を持つ。
